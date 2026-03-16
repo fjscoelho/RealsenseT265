@@ -6,13 +6,13 @@ Since the Realsense T265 has been officially removed from support, in order to a
 The repository is compiled and tested in the following system environment, and other environments are modified according to the actual situation.
 
 ### Step 1: Install the ROS2 distribution
-- **Ubuntu 22.04:**
-  - [ROS2 Humble](https://docs.ros.org/en/humble/Installation/Ubuntu-Install-Debians.html)
+- **Ubuntu 24.04:**
+  - [ROS2 Jazzy](https://docs.ros.org/en/jazzy/Installation/Ubuntu-Install-Debs.html)
 
 ### Step 2: Download source
   ```bash
   cd [ros2_ws]/src
-  git clone http://192.168.20.16/SLAM-Group/RealsenseT265.git
+  git clone https://github.com/fjscoelho/RealsenseT265.git
   ```
 
 ### Step 3: Build and install the Intel&reg; RealSense&trade; SDK 2.0
@@ -21,8 +21,42 @@ The repository is compiled and tested in the following system environment, and o
   cmake -DCMAKE_INSTALL_PREFIX=../install ..
   make & make install
   ```
+### Step 4 (Optional): Run realsense-viewer
+  ```bash
+  export LD_LIBRARY_PATH=[path_librealsense]/install/lib:$LD_LIBRARY_PATH
+  ./realsense-viewer
+  ```
+If a popup appears with the message "Missing/outdated UDEV-Rules will cause 'Permissions Denied' errors", then run the following commands:
+  ```bash
+  find [path_librealsense] -name "*udev*" -o -name "*rules*"
+  ls -la ~/.99-realsense-libusb.rules
+  sudo cp ~/.99-realsense-libusb.rules /etc/udev/rules.d/99-realsense-libusb.rules && sudo udevadm control --reload-rules && sudo udevadm trigger
+  ```
+After entering your password, the command will:
 
-### Step 4: Install dependencies
+  - Copy the `~/.99-realsense-libusb.rules` file to `/etc/udev/rules.d/99-realsense-libusb.rules`.
+  - Reload the UDEV rules using udevadm control `--reload-rules`.
+  - Apply the new rules with `udevadm trigger`.
+
+Post-Installation Steps:
+
+  1. Close the `realsense-viewer` application if it is currently open.
+  2. Disconnect and reconnect your RealSense camera (or simply restart your computer if you prefer).
+  3. Reopen realsense-viewer — the UDEV warning popup should no longer appear, and you should be able to access the camera without any permission errors.
+
+  <div align="center">
+  <img src="./images/realsense_viewer1.png" alt="RealSense Viewer Main Interface" width="650"/>
+  <br/>
+  <em>Figure 1: RealSense Viewer 3D mode with TrackingModule ON</em>
+  </div>
+
+  <div align="center">
+  <img src="./images/realsense_viewer2.png" alt="RealSense Viewer 2D Interface " width="650"/>
+  <br/>
+  <em>Figure 1: RealSense Viewer 2D mode</em>
+  </div>
+
+### Step 5: Install dependencies
   ```bash
   cd [ros2_ws]/src
   sudo apt-get install python3-rosdep -y
