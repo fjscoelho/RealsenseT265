@@ -56,8 +56,8 @@ Post-Installation Steps:
   <em>Figure 1: RealSense Viewer 2D mode</em>
   </div>
 
-#### Criar atalho para realsense-viewer (opcional)
-Para facilitar o uso, crie um atalho global que define automaticamente o `LD_LIBRARY_PATH` e executa o `realsense-viewer`. Execute os comandos abaixo uma vez:
+#### Create a shortcut for realsense-viewer (optional)
+To make it easier to use, create a global shortcut that automatically sets `LD_LIBRARY_PATH` and runs `realsense-viewer`. Run the commands below once:
 
 ```bash
 echo 'export LD_LIBRARY_PATH=[path_librealsense]/install/lib:$LD_LIBRARY_PATH && [path_librealsense]/install/bin/realsense-viewer' > /tmp/realsense-viewer.sh && chmod +x /tmp/realsense-viewer.sh
@@ -109,6 +109,12 @@ ros2 launch realsense2_camera rs_launch.py enable_pose:=true device_type:=t265
 ```bash
 ros2 launch realsense2_camera rs_t265_launch.py
 ```
+#### Rviz2 viusalization (optional)
+```bash
+cd [ros2_ws]/src/RealsenseT265/realsense-ros/rviz2
+ros2 rviz2 -d T265_config1.rviz
+```
+
 
 ## See [librealsense/readme](./librealsense/readme.md) & [realsense-ros/readme](./realsense-ros/README.md) for more details
 
