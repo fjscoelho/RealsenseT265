@@ -56,9 +56,17 @@ Post-Installation Steps:
   <em>Figure 1: RealSense Viewer 2D mode</em>
   </div>
 
+#### Criar atalho para realsense-viewer (opcional)
+Para facilitar o uso, crie um atalho global que define automaticamente o `LD_LIBRARY_PATH` e executa o `realsense-viewer`. Execute os comandos abaixo uma vez:
+
+```bash
+echo 'export LD_LIBRARY_PATH=[path_librealsense]/install/lib:$LD_LIBRARY_PATH && [path_librealsense]/install/bin/realsense-viewer' > /tmp/realsense-viewer.sh && chmod +x /tmp/realsense-viewer.sh
+sudo mv /tmp/realsense-viewer.sh /usr/local/bin/realsense-viewer && sudo chmod +x /usr/local/bin/realsense-viewer
+```
+
 ### Step 5: Install dependencies
   ```bash
-  cd [ros2_ws]/src
+  cd [ros2_ws]
   sudo apt-get install python3-rosdep -y
   sudo rosdep init # "sudo rosdep init --include-eol-distros" for Dashing
   rosdep update
@@ -68,6 +76,12 @@ Post-Installation Steps:
   ```bash
   colcon build --symlink-install --packages-ignore librealsense2 --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON -G Ninja
   ```
+
+> **Tip:** If you see an error like **"CMake was unable to find a build program corresponding to \"Ninja\""**, install Ninja with:
+> ```bash
+> sudo apt-get install ninja-build
+> ```
+> Then rerun the build command above.
 
 ### Step 6: Terminal environment
   ```bash
