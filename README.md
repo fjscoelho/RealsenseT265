@@ -109,10 +109,10 @@ ros2 launch realsense2_camera rs_launch.py enable_pose:=true device_type:=t265
 ```bash
 ros2 launch realsense2_camera rs_t265_launch.py
 ```
-#### Rviz2 viusalization (optional)
+#### Rviz2 visualization (optional)
 ```bash
 cd [ros2_ws]/src/RealsenseT265/realsense-ros/rviz2
-ros2 rviz2 -d T265_config1.rviz
+rviz2 -d T265_config1.rviz
 ```
 
 
