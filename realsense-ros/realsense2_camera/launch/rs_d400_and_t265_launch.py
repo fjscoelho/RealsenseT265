@@ -2,10 +2,12 @@
 # Copyright(c) 2022 Intel Corporation. All Rights Reserved.
 
 """Launch realsense2_camera node without rviz2."""
+# rs_d400_and_t265_launch.py
 from launch import LaunchDescription
 from launch.actions import IncludeLaunchDescription
 from launch.substitutions import ThisLaunchFileDir
 from launch.launch_description_sources import PythonLaunchDescriptionSource
+import launch_ros.actions
 import sys
 import pathlib
 sys.path.append(str(pathlib.Path(__file__).parent.absolute()))
@@ -26,5 +28,11 @@ def generate_launch_description():
         IncludeLaunchDescription(
             PythonLaunchDescriptionSource([ThisLaunchFileDir(), '/rs_multi_camera_launch.py']),
             launch_arguments=rs_launch.set_configurable_parameters(local_parameters).items(),
+        ),
+        # Relay para remapear o tópico de pose da T265 para /odom
+        launch_ros.actions.Node(
+            package='topic_tools',
+            executable='relay',
+            arguments=['/T265/pose/sample', 'odom'],
         ),
     ])

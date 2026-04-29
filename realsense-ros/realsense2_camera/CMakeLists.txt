@@ -101,7 +101,7 @@ find_package(tf2_ros REQUIRED)
 find_package(tf2 REQUIRED)
 find_package(diagnostic_updater REQUIRED)
 
-find_package(realsense2 2.51.1 PATHS ${CMAKE_CURRENT_SOURCE_DIR}/../../librealsense/install NO_DEFAULT_PATH)
+find_package(realsense2 2.53.1 PATHS $ENV{HOME}/Documents/librealsense_2_53/install NO_DEFAULT_PATH)
 message(STATUS "Found realsense2 ${realsense2_VERSION}")
 if(NOT realsense2_FOUND)
     message(FATAL_ERROR "\n\n Intel RealSense SDK 2.0 is missing, please install it from https://github.com/IntelRealSense/librealsense/releases\n\n")
